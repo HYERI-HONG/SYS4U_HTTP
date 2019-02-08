@@ -17,7 +17,6 @@ public class HttpRequestReceiver {
 		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		this.statusLine = in.readLine();
 		
-		//異붽� �닔�젙 �븘�슂
 		this.request = null;
 		this.header = null;
 		this.body = null;

@@ -6,9 +6,11 @@ import java.net.Socket;
 public class RunnableHttpServer implements Runnable {
 
 	private final Socket socket;
+	private final CacheManager cacheManager;
 
-	public RunnableHttpServer(Socket socket) {
+	public RunnableHttpServer(Socket socket, CacheManager cacheManager) {
 		this.socket = socket;
+		this.cacheManager = cacheManager;
 	}
 
 	@Override
@@ -16,8 +18,7 @@ public class RunnableHttpServer implements Runnable {
 
 		try {
 			String statusLine = new HttpRequestReceiver(socket).getStatusLine();
-			new HttpResponseSender(new StatusLineParser(statusLine),socket).send();
-			
+			new HttpResponseSender(socket,cacheManager).send(new StatusLineParser(statusLine));	
 			socket.close();
 			
 		} catch (IOException e) {

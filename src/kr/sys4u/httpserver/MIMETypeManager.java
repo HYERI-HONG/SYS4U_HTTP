@@ -8,6 +8,7 @@ public class MIMETypeManager {
 
 	public MIMETypeManager() {
 
+		MimeTypeList.put("text", "text/plain");
 		MimeTypeList.put("htm", "text/html");
 		MimeTypeList.put("html", "text/html");
 		MimeTypeList.put("jpeg", "image/jpeg");
@@ -32,11 +33,7 @@ public class MIMETypeManager {
 
 	public String getMIMEType(String extension) {
 		return (MimeTypeList.containsKey(extension)) ? 
-				MimeTypeList.get(extension) : null;
-	}
-
-	public Map<String, String> getMimeTypeList() {
-		return MimeTypeList;
+				MimeTypeList.get(extension) : "text/plain";
 	}
 
 }

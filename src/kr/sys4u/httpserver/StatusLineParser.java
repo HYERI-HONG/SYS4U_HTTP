@@ -2,21 +2,30 @@ package kr.sys4u.httpserver;
 
 public class StatusLineParser {
 
-	private final String url;
+	private final String statusLine;
+	private String url;
 	private boolean hasExtension;
 	private String extension;
 	private String fileName;
 
-	public StatusLineParser(String url) {
+	public StatusLineParser(String statusLine) {
 		
-		this.url = url.split(" ")[1];
-		this.fileName = this.url.substring(this.url.lastIndexOf("/"));
+		this.statusLine = statusLine;
 		
+		
+	}
+	public void parse() {
+		
+		url = statusLine.split(" ")[1];
+		if (url==null) {
+			return;
+		}
+		
+		fileName = url.substring(this.url.lastIndexOf("/"));
 		String[] parsed = fileName.split("\\.");
-		this.hasExtension = (parsed.length >= 2);
-		this.extension = (hasExtension)? 
-				parsed[parsed.length-1] : null;
-		
+		hasExtension = (parsed.length >= 2);
+		extension = (hasExtension)? 
+				parsed[parsed.length-1] : "text";
 	}
 
 	public String getFileName() {
